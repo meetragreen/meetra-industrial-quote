@@ -131,9 +131,9 @@ app.post('/generate-quotation', async (req, res) => {
             { val: data.laType, page: 5, x: 115, y: 450, font: font },         
 
             // --- PAGE 7 ---
-            { val: autoQuotNo, page: 6, x: 309, y: 760, font: font },          
-            { val: autoDate, page: 6, x: 490, y: 760, font: font },            
-            { val: data.customerName, page: 6, x: 42, y: 760, font: fontBold }, 
+            { val: autoQuotNo, page: 6, x: 309, y: 755, font: font },          
+            { val: autoDate, page: 6, x: 490, y: 755, font: font },            
+            { val: data.customerName, page: 6, x: 42, y: 755, font: fontBold }, 
             { val: data.plantCapacity, page: 6, x: 91, y: 635, font: font },   
             { val: data.plantCapacity, page: 6, x: 91, y: 552, font: font },   
 
