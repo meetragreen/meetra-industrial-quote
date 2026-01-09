@@ -17,6 +17,11 @@ function App() {
     structureRate: '',   
 
     // Manual Inputs for Details
+    // --- NEW FIELDS ADDED HERE ---
+    panelWattage: '',
+    panelQty: '',
+    inverterCapacity: '',
+    // -----------------------------
     structureMake: '',   
     structureQty: '',    
     inverterWarranty: '',
@@ -151,6 +156,7 @@ function App() {
         {/* --- SECTION 2: TECHNICAL DETAILS --- */}
         <h4 style={sectionHeader}>2. Technical Specs</h4>
         
+        {/* ROW 1: Panel Make & Type */}
         <div style={rowStyle}>
           <div style={{flex:1, marginRight: "10px"}}>
              <label style={labelStyle}>Panel Make</label>
@@ -166,6 +172,19 @@ function App() {
           </div>
         </div>
 
+        {/* ROW 2: Panel Wattage & Qty (NEW ADDITION) */}
+        <div style={rowStyle}>
+          <div style={{flex:1, marginRight: "10px"}}>
+             <label style={labelStyle}>Panel Wattage (Wp)</label>
+             <input style={inputStyle} name="panelWattage" placeholder="e.g. 550" onChange={handleChange} />
+          </div>
+          <div style={{flex:1}}>
+             <label style={labelStyle}>Panel Qty (Nos)</label>
+             <input style={inputStyle} name="panelQty" placeholder="e.g. 12" onChange={handleChange} />
+          </div>
+        </div>
+
+        {/* ROW 3: Inverter Make & Capacity (UPDATED) */}
         <div style={rowStyle}>
            <div style={{flex:1, marginRight: "10px"}}>
              <label style={labelStyle}>Inverter Make</label>
@@ -174,27 +193,36 @@ function App() {
              </select>
            </div>
            <div style={{flex:1}}>
+             <label style={labelStyle}>Inverter Capacity (kW)</label>
+             <input style={inputStyle} name="inverterCapacity" placeholder="e.g. 10" onChange={handleChange} />
+           </div>
+        </div>
+
+        {/* ROW 4: Warranty & Structure Make */}
+        <div style={rowStyle}>
+           <div style={{flex:1, marginRight: "10px"}}>
              <label style={labelStyle}>Warranty (Years)</label>
              <input style={inputStyle} name="inverterWarranty" placeholder="e.g. 8" onChange={handleChange} />
            </div>
+            <div style={{flex:1}}>
+                <label style={labelStyle}>Structure Make</label>
+                <input style={inputStyle} name="structureMake" placeholder="e.g. Hindustar" onChange={handleChange} />
+            </div>
         </div>
 
         <div style={rowStyle}>
             <div style={{flex:1, marginRight: "10px"}}>
-                <label style={labelStyle}>Structure Make</label>
-                <input style={inputStyle} name="structureMake" placeholder="e.g. Hindustar" onChange={handleChange} />
-            </div>
-            <div style={{flex:1}}>
                 <label style={labelStyle}>Structure Qty (kg)</label>
                 <input style={inputStyle} name="structureQty" placeholder="e.g. 370" onChange={handleChange} />
             </div>
+            <div style={{flex:1}}>
+                <label style={labelStyle}>Lightning Arrestor</label>
+                <select style={inputStyle} name="laType" onChange={handleChange}>
+                    <option value="Conventional">Conventional</option>
+                    <option value="ESE(107 MTR Radius)">ESE(107 MTR Radius)</option>
+                </select>
+            </div>
         </div>
-
-        <label style={labelStyle}>Lightning Arrestor</label>
-        <select style={inputStyle} name="laType" onChange={handleChange}>
-            <option value="Conventional">Conventional</option>
-            <option value="ESE(107 MTR Radius)">ESE(107 MTR Radius)</option>
-        </select>
 
         {/* --- SECTION 3: COSTING --- */}
         <h4 style={sectionHeader}>3. Commercials</h4>

@@ -108,11 +108,17 @@ app.post('/generate-quotation', async (req, res) => {
             }, 
 
             // --- PAGE 5 ---
-            { val: "560", page: 4, x: 296, y: 661, font: font },               
+            // UPDATED: Replaced hardcoded "560" with data.panelWattage
+            { val: data.panelWattage, page: 4, x: 296, y: 661, font: font },               
             { val: data.panelMake, page: 4, x: 391, y: 655, font: fontBold },  
-            { val: "17", page: 4, x: 533, y: 653, font: font },                
+            
+            // UPDATED: Replaced hardcoded "17" with data.panelQty
+            { val: data.panelQty, page: 4, x: 533, y: 653, font: font },                
+            
             { val: data.panelType, page: 4, x: 119, y: 643, font: font },      
-            { val: data.plantCapacity, page: 4, x: 192, y: 618, font: font },  
+            
+            // UPDATED: Mapped to data.inverterCapacity (was plantCapacity before)
+            { val: data.inverterCapacity, page: 4, x: 192, y: 618, font: font },  
             { val: data.inverterMake, page: 4, x: 391, y: 618, font: fontBold }, 
             
             { val: "80x40", page: 4, x: 156, y: 422, font: font },             
@@ -156,7 +162,8 @@ app.post('/generate-quotation', async (req, res) => {
 
         replacements.forEach(item => {
             const page = pages[item.page];
-            const textString = String(item.val);
+            // Ensure value is a string, handle empty values safely
+            const textString = String(item.val || '');
             const textFont = item.font || font;
             const textSize = item.size || 11;
             const textColor = item.color || BLACK;
@@ -185,4 +192,6 @@ app.post('/generate-quotation', async (req, res) => {
     } catch (error) { console.log(error); res.status(500).send("Error"); }
 });
 
-app.listen(5000, () => console.log('Server running on port 5000'));
+// IMPORTANT: Updated for Render deployment
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
