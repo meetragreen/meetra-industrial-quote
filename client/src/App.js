@@ -68,7 +68,7 @@ function App() {
 
   const checkServerTemplate = async () => {
     try {
-      const res = await axios.get('https://meetra-industrial-quote.onrender.com/check-template');
+      const res = await axios.get('https://meetra-industrial-quote-nqm4.onrender.com/check-template');
       setHasTemplate(res.data.exists);
     } catch (error) { console.error("Server offline?"); }
   };
@@ -79,7 +79,7 @@ function App() {
     const uploadData = new FormData();
     uploadData.append('templatePdf', file);
     try {
-      await axios.post('https://meetra-industrial-quote.onrender.com/upload-template', uploadData);
+      await axios.post('https://meetra-industrial-quote-nqm4.onrender.com/upload-template', uploadData);
       alert("Template Saved!");
       setHasTemplate(true);
     } catch (error) { alert("Error uploading"); }
@@ -93,7 +93,7 @@ function App() {
     if (!hasTemplate) { alert("Please Upload Template first!"); return; }
     setLoading(true);
     try {
-      const response = await axios.post('https://meetra-industrial-quote.onrender.com/generate-quotation', formData, {
+      const response = await axios.post('https://meetra-industrial-quote-nqm4.onrender.com/generate-quotation', formData, {
         responseType: 'blob', 
       });
       const url = window.URL.createObjectURL(new Blob([response.data]));
