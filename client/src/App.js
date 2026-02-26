@@ -8,29 +8,27 @@ function App() {
     customerName: '', 
     location: '', 
     plantCapacity: '', 
-    
-    // NEW FIELD: Manual Sequence Override
     startSeq: '', 
 
     // Manual Inputs for Calculation
     systemRate: '',      
-    structureRate: '',   
-
-    // Manual Inputs for Details
-    // --- NEW FIELDS ADDED HERE ---
-    panelWattage: '',
-    panelQty: '',
-    inverterCapacity: '',
-    // -----------------------------
-    structureMake: '',   
-    structureQty: '',    
-    inverterWarranty: '',
+    structureRate: '',  
     
-    // Dropdowns
+    // Dropdowns & Defaults
     panelType: 'Topcon', 
     panelMake: 'Adani',  
     inverterMake: 'Deye',
     laType: 'Conventional', 
+    
+    // --- NEW FIELDS ---
+    mountingType: 'Structure',   
+    mountingDetails: '', 
+    panelWattage: '',
+    panelQty: '',
+    inverterCapacity: '',
+    structureMake: '',   
+    structureQty: '',    
+    inverterWarranty: '',
 
     // Auto-Calculated Fields
     systemCost: '0',     
@@ -127,19 +125,19 @@ function App() {
         <div style={rowStyle}>
           <div style={{flex:1, marginRight: "10px"}}>
             <label style={labelStyle}>Customer Name</label>
-            <input style={inputStyle} name="customerName" onChange={handleChange} />
+            <input style={inputStyle} name="customerName" value={formData.customerName} onChange={handleChange} />
           </div>
           <div style={{flex:1}}>
             <label style={labelStyle}>Location</label>
-            <input style={inputStyle} name="location" onChange={handleChange} />
+            <input style={inputStyle} name="location" value={formData.location} onChange={handleChange} />
           </div>
         </div>
 
-        {/* NEW MANUAL SEQUENCE FIELD */}
+        {/* MANUAL SEQUENCE & CAPACITY */}
         <div style={rowStyle}>
             <div style={{flex:1, marginRight: "10px"}}>
                 <label style={labelStyle}>Plant Capacity (kW)</label>
-                <input style={inputStyle} name="plantCapacity" placeholder="e.g. 9.52" onChange={handleChange} />
+                <input style={inputStyle} name="plantCapacity" placeholder="e.g. 9.52" value={formData.plantCapacity} onChange={handleChange} />
             </div>
             <div style={{flex:1}}>
                 <label style={{...labelStyle, color: "#d32f2f"}}>Set Quotation No. (Optional)</label>
@@ -156,85 +154,122 @@ function App() {
         {/* --- SECTION 2: TECHNICAL DETAILS --- */}
         <h4 style={sectionHeader}>2. Technical Specs</h4>
         
-        {/* ROW 1: Panel Make & Type */}
+        {/* ROW 1: Panel Make & Type (UPDATED: Datalist for manual entry) */}
         <div style={rowStyle}>
           <div style={{flex:1, marginRight: "10px"}}>
              <label style={labelStyle}>Panel Make</label>
-             <select style={inputStyle} name="panelMake" onChange={handleChange}>
-                <option>Adani</option><option>Goldi</option><option>Rayzon</option><option>UTL</option><option>Waaree</option>
-             </select>
+             <input 
+                style={inputStyle} 
+                name="panelMake" 
+                list="panel-makes"
+                value={formData.panelMake}
+                onChange={handleChange} 
+                placeholder="Select or type..."
+             />
+             <datalist id="panel-makes">
+                <option value="Adani" /><option value="Goldi" /><option value="Rayzon" /><option value="UTL" /><option value="Waaree" />
+             </datalist>
           </div>
           <div style={{flex:1}}>
              <label style={labelStyle}>Panel Type</label>
-             <select style={inputStyle} name="panelType" onChange={handleChange}>
+             <select style={inputStyle} name="panelType" value={formData.panelType} onChange={handleChange}>
                 <option>Topcon</option><option>Bifacial</option><option>HJT</option>
              </select>
           </div>
         </div>
 
-        {/* ROW 2: Panel Wattage & Qty (NEW ADDITION) */}
+        {/* ROW 2: Panel Wattage & Qty */}
         <div style={rowStyle}>
           <div style={{flex:1, marginRight: "10px"}}>
              <label style={labelStyle}>Panel Wattage (Wp)</label>
-             <input style={inputStyle} name="panelWattage" placeholder="e.g. 550" onChange={handleChange} />
+             <input style={inputStyle} name="panelWattage" placeholder="e.g. 550" value={formData.panelWattage} onChange={handleChange} />
           </div>
           <div style={{flex:1}}>
              <label style={labelStyle}>Panel Qty (Nos)</label>
-             <input style={inputStyle} name="panelQty" placeholder="e.g. 12" onChange={handleChange} />
+             <input style={inputStyle} name="panelQty" placeholder="e.g. 12" value={formData.panelQty} onChange={handleChange} />
           </div>
         </div>
 
-        {/* ROW 3: Inverter Make & Capacity (UPDATED) */}
+        {/* ROW 3: Inverter Make & Capacity (UPDATED: Datalist for manual entry) */}
         <div style={rowStyle}>
            <div style={{flex:1, marginRight: "10px"}}>
              <label style={labelStyle}>Inverter Make</label>
-             <select style={inputStyle} name="inverterMake" onChange={handleChange}>
-                <option>Deye</option><option>Solis</option><option>Sungrow</option><option>UTL</option>
-             </select>
+             <input 
+                style={inputStyle} 
+                name="inverterMake" 
+                list="inverter-makes"
+                value={formData.inverterMake}
+                onChange={handleChange} 
+                placeholder="Select or type..."
+             />
+             <datalist id="inverter-makes">
+                <option value="Deye" /><option value="Solis" /><option value="Sungrow" /><option value="UTL" />
+             </datalist>
            </div>
            <div style={{flex:1}}>
              <label style={labelStyle}>Inverter Capacity (kW)</label>
-             <input style={inputStyle} name="inverterCapacity" placeholder="e.g. 10" onChange={handleChange} />
+             <input style={inputStyle} name="inverterCapacity" placeholder="e.g. 10" value={formData.inverterCapacity} onChange={handleChange} />
            </div>
         </div>
 
-        {/* ROW 4: Warranty & Structure Make */}
+        {/* ROW 4: Mounting Type & Warranty (NEW) */}
         <div style={rowStyle}>
            <div style={{flex:1, marginRight: "10px"}}>
-             <label style={labelStyle}>Warranty (Years)</label>
-             <input style={inputStyle} name="inverterWarranty" placeholder="e.g. 8" onChange={handleChange} />
+             <label style={labelStyle}>Mounting Type</label>
+             <select style={inputStyle} name="mountingType" value={formData.mountingType} onChange={handleChange}>
+                <option value="Structure">Structure</option>
+                <option value="Direct Mounting">Direct Mounting</option>
+             </select>
            </div>
-            <div style={{flex:1}}>
-                <label style={labelStyle}>Structure Make</label>
-                <input style={inputStyle} name="structureMake" placeholder="e.g. Hindustar" onChange={handleChange} />
-            </div>
+           <div style={{flex:1}}>
+             <label style={labelStyle}>Warranty (Years)</label>
+             <input style={inputStyle} name="inverterWarranty" placeholder="e.g. 8" value={formData.inverterWarranty} onChange={handleChange} />
+           </div>
         </div>
 
-        <div style={rowStyle}>
-            <div style={{flex:1, marginRight: "10px"}}>
-                <label style={labelStyle}>Structure Qty (kg)</label>
-                <input style={inputStyle} name="structureQty" placeholder="e.g. 370" onChange={handleChange} />
+        {/* ROW 5: CONDITIONAL STRUCTURE OR DIRECT MOUNTING DETAILS */}
+        {formData.mountingType === 'Structure' ? (
+            <div style={rowStyle}>
+                <div style={{flex:1, marginRight: "10px"}}>
+                    <label style={labelStyle}>Structure Make</label>
+                    <input style={inputStyle} name="structureMake" placeholder="e.g. Hindustar" value={formData.structureMake} onChange={handleChange} />
+                </div>
+                <div style={{flex:1}}>
+                    <label style={labelStyle}>Structure Qty (kg)</label>
+                    <input style={inputStyle} name="structureQty" placeholder="e.g. 370" value={formData.structureQty} onChange={handleChange} />
+                </div>
             </div>
+        ) : (
+            <div style={rowStyle}>
+                <div style={{flex:1}}>
+                    <label style={labelStyle}>Direct Mounting Details</label>
+                    <input style={inputStyle} name="mountingDetails" placeholder="e.g. Aluminum Rails with Fasteners" value={formData.mountingDetails} onChange={handleChange} />
+                </div>
+            </div>
+        )}
+
+        {/* ROW 6: Lightning Arrestor */}
+        <div style={rowStyle}>
             <div style={{flex:1}}>
                 <label style={labelStyle}>Lightning Arrestor</label>
-                <select style={inputStyle} name="laType" onChange={handleChange}>
+                <select style={inputStyle} name="laType" value={formData.laType} onChange={handleChange}>
                     <option value="Conventional">Conventional</option>
                     <option value="ESE(107 MTR Radius)">ESE(107 MTR Radius)</option>
                 </select>
             </div>
         </div>
 
-        {/* --- SECTION 3: COSTING --- */}
+        {/* --- SECTION 3: COMMERCIALS --- */}
         <h4 style={sectionHeader}>3. Commercials</h4>
         
         <div style={rowStyle}>
            <div style={{flex:1, marginRight: "10px"}}>
               <label style={labelStyle}>System Rate / kW</label>
-              <input style={inputStyle} name="systemRate" placeholder="e.g. 22750" onChange={handleChange} />
+              <input style={inputStyle} name="systemRate" placeholder="e.g. 22750" value={formData.systemRate} onChange={handleChange} />
            </div>
            <div style={{flex:1}}>
               <label style={labelStyle}>Structure Rate / kW</label>
-              <input style={inputStyle} name="structureRate" placeholder="e.g. 4000" onChange={handleChange} />
+              <input style={inputStyle} name="structureRate" placeholder="e.g. 4000" value={formData.structureRate} onChange={handleChange} />
            </div>
         </div>
 

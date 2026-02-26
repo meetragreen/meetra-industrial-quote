@@ -108,24 +108,26 @@ app.post('/generate-quotation', async (req, res) => {
             }, 
 
             // --- PAGE 5 ---
-            // UPDATED: Replaced hardcoded "560" with data.panelWattage
             { val: data.panelWattage, page: 4, x: 296, y: 661, font: font },               
             { val: data.panelMake, page: 4, x: 391, y: 655, font: fontBold },  
-            
-            // UPDATED: Replaced hardcoded "17" with data.panelQty
             { val: data.panelQty, page: 4, x: 533, y: 653, font: font },                
-            
             { val: data.panelType, page: 4, x: 119, y: 643, font: font },      
-            
-            // UPDATED: Mapped to data.inverterCapacity (was plantCapacity before)
             { val: data.inverterCapacity, page: 4, x: 192, y: 618, font: font },  
             { val: data.inverterMake, page: 4, x: 391, y: 618, font: fontBold }, 
             
             { val: "80x40", page: 4, x: 156, y: 422, font: font },             
             { val: "80x40", page: 4, x: 264, y: 422, font: font },             
             { val: "60x40", page: 4, x: 158, y: 405, font: font },             
-            { val: data.structureMake, page: 4, x: 391, y: 440, font: font },  
-            { val: data.structureQty, page: 4, x: 531, y: 440, font: font },   
+            
+            // --- UPDATED LOGIC: Structure vs Direct Mounting ---
+            { 
+                val: data.mountingType === 'Direct Mounting' ? 'Direct Mounting' : data.structureMake, 
+                page: 4, x: 391, y: 440, font: font 
+            },  
+            { 
+                val: data.mountingType === 'Direct Mounting' ? data.mountingDetails : data.structureQty, 
+                page: 4, x: 531, y: 440, font: font 
+            },  
 
             // --- PAGE 6 ---
             { val: data.laType, page: 5, x: 115, y: 450, font: font },         
