@@ -3,6 +3,12 @@ import axios from 'axios';
 import './App.css';
 
 function App() {
+  // --- FETCH SAVED DETAILS FROM BROWSER ---
+  const savedMountingType = localStorage.getItem('mountingType') || 'Structure';
+  const savedMountingDetails = localStorage.getItem('mountingDetails') || '';
+  const savedStructureMake = localStorage.getItem('structureMake') || 'Hindustar';
+  const savedStructureQty = localStorage.getItem('structureQty') || '';
+
   const [formData, setFormData] = useState({
     // Text Fields
     customerName: '', 
@@ -20,14 +26,16 @@ function App() {
     inverterMake: 'Deye',
     laType: 'Conventional', 
     
-    // --- NEW FIELDS ---
-    mountingType: 'Structure',   
-    mountingDetails: '', 
+    // --- SAVED FIELDS (Automatically loads last typed value) ---
+    mountingType: savedMountingType,   
+    mountingDetails: savedMountingDetails, 
+    structureMake: savedStructureMake,   
+    structureQty: savedStructureQty,    
+    
+    // Other Details
     panelWattage: '',
     panelQty: '',
     inverterCapacity: '',
-    structureMake: '',   
-    structureQty: '',    
     inverterWarranty: '',
 
     // Auto-Calculated Fields
