@@ -5,9 +5,10 @@ import './App.css';
 function App() {
   // --- FETCH SAVED DETAILS FROM BROWSER ---
   const savedMountingType = localStorage.getItem('mountingType') || 'Structure';
-  const savedMountingDetails = localStorage.getItem('mountingDetails') || '';
-  const savedStructureMake = localStorage.getItem('structureMake') || 'Hindustar';
+  const savedStructureDesc = localStorage.getItem('structureDesc') || '';
   const savedStructureQty = localStorage.getItem('structureQty') || '';
+  const savedDirectDesc = localStorage.getItem('directDesc') || '';
+  const savedDirectQty = localStorage.getItem('directQty') || '';
 
   const [formData, setFormData] = useState({
     // Text Fields
@@ -26,11 +27,12 @@ function App() {
     inverterMake: 'Deye',
     laType: 'Conventional', 
     
-    // --- SAVED FIELDS (Automatically loads last typed value) ---
+    // --- UPDATED SAVED MOUNTING FIELDS ---
     mountingType: savedMountingType,   
-    mountingDetails: savedMountingDetails, 
-    structureMake: savedStructureMake,   
-    structureQty: savedStructureQty,    
+    structureDesc: savedStructureDesc,
+    structureQty: savedStructureQty,
+    directDesc: savedDirectDesc,
+    directQty: savedDirectQty,
     
     // Other Details
     panelWattage: '',
@@ -78,6 +80,15 @@ function App() {
       setHasTemplate(res.data.exists);
     } catch (error) { console.error("Server offline?"); }
   };
+
+  // --- 3. AUTO-SAVE MOUNTING DETAILS ---
+  useEffect(() => {
+    localStorage.setItem('mountingType', formData.mountingType);
+    localStorage.setItem('structureDesc', formData.structureDesc);
+    localStorage.setItem('structureQty', formData.structureQty);
+    localStorage.setItem('directDesc', formData.directDesc);
+    localStorage.setItem('directQty', formData.directQty);
+  }, [formData.mountingType, formData.structureDesc, formData.structureQty, formData.directDesc, formData.directQty]);
 
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
@@ -162,7 +173,7 @@ function App() {
         {/* --- SECTION 2: TECHNICAL DETAILS --- */}
         <h4 style={sectionHeader}>2. Technical Specs</h4>
         
-        {/* ROW 1: Panel Make & Type (UPDATED: Datalist for manual entry) */}
+        {/* ROW 1: Panel Make & Type */}
         <div style={rowStyle}>
           <div style={{flex:1, marginRight: "10px"}}>
              <label style={labelStyle}>Panel Make</label>
@@ -198,7 +209,7 @@ function App() {
           </div>
         </div>
 
-        {/* ROW 3: Inverter Make & Capacity (UPDATED: Datalist for manual entry) */}
+        {/* ROW 3: Inverter Make & Capacity */}
         <div style={rowStyle}>
            <div style={{flex:1, marginRight: "10px"}}>
              <label style={labelStyle}>Inverter Make</label>
@@ -220,7 +231,7 @@ function App() {
            </div>
         </div>
 
-        {/* ROW 4: Mounting Type & Warranty (NEW) */}
+        {/* ROW 4: Mounting Type & Warranty */}
         <div style={rowStyle}>
            <div style={{flex:1, marginRight: "10px"}}>
              <label style={labelStyle}>Mounting Type</label>
@@ -239,19 +250,23 @@ function App() {
         {formData.mountingType === 'Structure' ? (
             <div style={rowStyle}>
                 <div style={{flex:1, marginRight: "10px"}}>
-                    <label style={labelStyle}>Structure Make</label>
-                    <input style={inputStyle} name="structureMake" placeholder="e.g. Hindustar" value={formData.structureMake} onChange={handleChange} />
+                    <label style={labelStyle}>Structure Details</label>
+                    <input style={inputStyle} name="structureDesc" placeholder="e.g. Hot Dip Galvanized" value={formData.structureDesc} onChange={handleChange} />
                 </div>
                 <div style={{flex:1}}>
-                    <label style={labelStyle}>Structure Qty (kg)</label>
-                    <input style={inputStyle} name="structureQty" placeholder="e.g. 370" value={formData.structureQty} onChange={handleChange} />
+                    <label style={labelStyle}>Structure Qty</label>
+                    <input style={inputStyle} name="structureQty" placeholder="e.g. 370 kg" value={formData.structureQty} onChange={handleChange} />
                 </div>
             </div>
         ) : (
             <div style={rowStyle}>
-                <div style={{flex:1}}>
+                <div style={{flex:1, marginRight: "10px"}}>
                     <label style={labelStyle}>Direct Mounting Details</label>
-                    <input style={inputStyle} name="mountingDetails" placeholder="e.g. Aluminum Rails with Fasteners" value={formData.mountingDetails} onChange={handleChange} />
+                    <input style={inputStyle} name="directDesc" placeholder="e.g. Aluminum Rails" value={formData.directDesc} onChange={handleChange} />
+                </div>
+                <div style={{flex:1}}>
+                    <label style={labelStyle}>Direct Qty</label>
+                    <input style={inputStyle} name="directQty" placeholder="e.g. 150 kg" value={formData.directQty} onChange={handleChange} />
                 </div>
             </div>
         )}

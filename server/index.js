@@ -119,13 +119,20 @@ app.post('/generate-quotation', async (req, res) => {
             { val: "80x40", page: 4, x: 264, y: 422, font: font },             
             { val: "60x40", page: 4, x: 158, y: 405, font: font },             
             
-            // --- UPDATED LOGIC: Structure vs Direct Mounting ---
+            // --- NEW MOUNTING LOGIC (3 DETAILS) ---
+            // 1. Type (Structure or Direct Mounting) 
             { 
-                val: data.mountingType === 'Direct Mounting' ? 'Direct Mounting' : data.structureMake, 
-                page: 4, x: 391, y: 440, font: font 
+                val: data.mountingType, 
+                page: 4, x: 65, y: 440, font: fontBold 
+            },
+            // 2. Details / Specification (Dependent on what user selected)
+            { 
+                val: data.mountingType === 'Structure' ? data.structureDesc : data.directDesc, 
+                page: 4, x: 156, y: 440, font: font 
             },  
+            // 3. Quantity (Qty) (Dependent on what user selected)
             { 
-                val: data.mountingType === 'Direct Mounting' ? data.mountingDetails : data.structureQty, 
+                val: data.mountingType === 'Structure' ? data.structureQty : data.directQty, 
                 page: 4, x: 531, y: 440, font: font 
             },  
 
