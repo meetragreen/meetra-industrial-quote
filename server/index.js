@@ -89,11 +89,11 @@ app.post('/generate-quotation', async (req, res) => {
 
         const replacements = [
             // --- PAGE 2 ---
-            { val: autoQuotNo, page: 1, x: 280, y: 652, font: fontBold },      
-            { val: autoDate, page: 1, x: 280, y: 600, font: font },            
-            { val: data.customerName, page: 1, x: 280, y: 505, font: fontBold }, 
-            { val: `${data.plantCapacity} kW`, page: 1, x: 280, y: 455, font: font }, 
-            { val: data.location, page: 1, x: 280, y: 410, font: font },       
+            { val: autoQuotNo, page: 1, x: 280, y: 652, font: fontBold ,size: 14},      
+            { val: autoDate, page: 1, x: 280, y: 600, font: fontBold,size: 14 },            
+            { val: data.customerName, page: 1, x: 280, y: 505, font: fontBold,size: 14 }, 
+            { val: `${data.plantCapacity} kW`, page: 1, x: 280, y: 455, font: fontBold,size: 14 }, 
+            { val: data.location, page: 1, x: 280, y: 410, font: fontBold ,size: 14},       
             
             // 6----- (Green & Centered)
             { 
@@ -102,7 +102,7 @@ app.post('/generate-quotation', async (req, res) => {
                 x: 0, 
                 y: 175, 
                 font: fontBold, 
-                size: 14, 
+                size: 16, 
                 align: 'center', 
                 color: MEETRA_GREEN 
             }, 
@@ -110,7 +110,7 @@ app.post('/generate-quotation', async (req, res) => {
             // --- PAGE 3 (NEWLY ADDED) ---
             // NOTE: Check the generated PDF. If the name is not in the correct spot on Page 3, 
             // you will need to adjust x (left/right) and y (up/down) below:
-            { val: data.customerName, page: 2, x: 280, y: 500, font: fontBold }, 
+            { val: data.customerName, page: 2, x: 42, y: 709, font: fontBold, size: 15 }, 
 
             // --- PAGE 5 ---
             { val: data.panelWattage, page: 4, x: 296, y: 661, font: font },               
@@ -118,34 +118,31 @@ app.post('/generate-quotation', async (req, res) => {
             { val: data.panelQty, page: 4, x: 533, y: 653, font: font },                
             { val: data.panelType, page: 4, x: 119, y: 643, font: font },      
             { val: data.inverterCapacity, page: 4, x: 192, y: 618, font: font },  
-            { val: data.inverterMake, page: 4, x: 391, y: 618, font: fontBold }, 
-            
-            { val: "80x40", page: 4, x: 156, y: 422, font: font },             
-            { val: "80x40", page: 4, x: 264, y: 422, font: font },             
-            { val: "60x40", page: 4, x: 158, y: 405, font: font },             
+            { val: data.inverterMake, page: 4, x: 391, y: 569, font: fontBold }, 
+                       
             
             // --- NEW MOUNTING LOGIC (3 DETAILS) ---
             { 
                 val: data.mountingType, 
-                page: 4, x: 65, y: 440, font: fontBold 
+                page: 4, x: 28, y: 495, font: font
             },
             { 
                 // Using standard String, the PDF-lib will respect newline (\n) characters from textarea!
                 val: data.mountingType === 'Structure' ? data.structureDesc : data.directDesc, 
-                page: 4, x: 156, y: 440, font: font 
+                page: 4, x: 112, y: 487, font: font 
             },  
             { 
                 val: data.mountingType === 'Structure' ? data.structureQty : data.directQty, 
-                page: 4, x: 531, y: 440, font: font 
+                page: 4, x: 520, y: 460, font: font 
             },  
 
             // --- PAGE 6 ---
             { val: data.laType, page: 5, x: 115, y: 450, font: font },         
 
             // --- PAGE 7 ---
-            { val: autoQuotNo, page: 6, x: 309, y: 755, font: font },          
-            { val: autoDate, page: 6, x: 490, y: 755, font: font },            
-            { val: data.customerName, page: 6, x: 42, y: 755, font: fontBold }, 
+            { val: autoQuotNo, page: 6, x: 298, y: 732, font: font },          
+            { val: autoDate, page: 6, x: 485, y: 732, font: font },            
+            { val: data.customerName, page: 6, x: 42, y: 732, font: fontBold }, 
             { val: data.plantCapacity, page: 6, x: 91, y: 635, font: font },   
             { val: data.plantCapacity, page: 6, x: 91, y: 552, font: font },   
 
