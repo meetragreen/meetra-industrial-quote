@@ -246,12 +246,18 @@ function App() {
            </div>
         </div>
 
-        {/* ROW 5: CONDITIONAL STRUCTURE OR DIRECT MOUNTING DETAILS */}
+        {/* ROW 5: CONDITIONAL STRUCTURE OR DIRECT MOUNTING DETAILS (UPDATED to TEXTAREA) */}
         {formData.mountingType === 'Structure' ? (
             <div style={rowStyle}>
                 <div style={{flex:1, marginRight: "10px"}}>
                     <label style={labelStyle}>Structure Details</label>
-                    <input style={inputStyle} name="structureDesc" placeholder="e.g. Hot Dip Galvanized" value={formData.structureDesc} onChange={handleChange} />
+                    <textarea 
+                        style={{...inputStyle, minHeight: "60px", resize: "vertical"}} 
+                        name="structureDesc" 
+                        placeholder="e.g. Hot Dip Galvanized..." 
+                        value={formData.structureDesc} 
+                        onChange={handleChange} 
+                    />
                 </div>
                 <div style={{flex:1}}>
                     <label style={labelStyle}>Structure Qty</label>
@@ -262,7 +268,13 @@ function App() {
             <div style={rowStyle}>
                 <div style={{flex:1, marginRight: "10px"}}>
                     <label style={labelStyle}>Direct Mounting Details</label>
-                    <input style={inputStyle} name="directDesc" placeholder="e.g. Aluminum Rails" value={formData.directDesc} onChange={handleChange} />
+                    <textarea 
+                        style={{...inputStyle, minHeight: "60px", resize: "vertical"}} 
+                        name="directDesc" 
+                        placeholder="e.g. Aluminum Rails..." 
+                        value={formData.directDesc} 
+                        onChange={handleChange} 
+                    />
                 </div>
                 <div style={{flex:1}}>
                     <label style={labelStyle}>Direct Qty</label>

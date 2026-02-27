@@ -107,6 +107,11 @@ app.post('/generate-quotation', async (req, res) => {
                 color: MEETRA_GREEN 
             }, 
 
+            // --- PAGE 3 (NEWLY ADDED) ---
+            // NOTE: Check the generated PDF. If the name is not in the correct spot on Page 3, 
+            // you will need to adjust x (left/right) and y (up/down) below:
+            { val: data.customerName, page: 2, x: 280, y: 500, font: fontBold }, 
+
             // --- PAGE 5 ---
             { val: data.panelWattage, page: 4, x: 296, y: 661, font: font },               
             { val: data.panelMake, page: 4, x: 391, y: 655, font: fontBold },  
@@ -120,17 +125,15 @@ app.post('/generate-quotation', async (req, res) => {
             { val: "60x40", page: 4, x: 158, y: 405, font: font },             
             
             // --- NEW MOUNTING LOGIC (3 DETAILS) ---
-            // 1. Type (Structure or Direct Mounting) 
             { 
                 val: data.mountingType, 
                 page: 4, x: 65, y: 440, font: fontBold 
             },
-            // 2. Details / Specification (Dependent on what user selected)
             { 
+                // Using standard String, the PDF-lib will respect newline (\n) characters from textarea!
                 val: data.mountingType === 'Structure' ? data.structureDesc : data.directDesc, 
                 page: 4, x: 156, y: 440, font: font 
             },  
-            // 3. Quantity (Qty) (Dependent on what user selected)
             { 
                 val: data.mountingType === 'Structure' ? data.structureQty : data.directQty, 
                 page: 4, x: 531, y: 440, font: font 
@@ -191,6 +194,7 @@ app.post('/generate-quotation', async (req, res) => {
                 size: textSize, 
                 font: textFont,
                 color: textColor, 
+                lineHeight: 14, // Set line-height just in case there are multiple lines
             });
         });
 
