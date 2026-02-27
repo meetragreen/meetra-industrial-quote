@@ -130,7 +130,7 @@ app.post('/generate-quotation', async (req, res) => {
             { 
                 // Using standard String, the PDF-lib will respect newline (\n) characters from textarea!
                 val: data.mountingType === 'Structure' ? data.structureDesc : data.directDesc, 
-                page: 4, x: 112, y: 487, font: font 
+                page: 4, x: 112, y: 440, font: font 
             },  
             { 
                 val: data.mountingType === 'Structure' ? data.structureQty : data.directQty, 
