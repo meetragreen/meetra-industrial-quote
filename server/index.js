@@ -122,15 +122,14 @@ app.post('/generate-quotation', async (req, res) => {
                        
             
             // --- NEW MOUNTING LOGIC (3 DETAILS) ---
-           // 1. Type (Structure or Direct Mounting) - Multi-line if Direct Mounting
             { 
-                val: data.mountingType === 'Direct Mounting' ? 'Direct\nMounting' : data.mountingType, 
-                page: 4, x: 65, y: 440, font: fontBold 
+                val: data.mountingType, 
+                page: 4, x: 28, y: 495, font: font
             },
             { 
                 // Using standard String, the PDF-lib will respect newline (\n) characters from textarea!
                 val: data.mountingType === 'Structure' ? data.structureDesc : data.directDesc, 
-                page: 4, x: 112, y: 440, font: font 
+                page: 4, x: 112, y: 495, font: font 
             },  
             { 
                 val: data.mountingType === 'Structure' ? data.structureQty : data.directQty, 
